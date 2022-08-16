@@ -1,5 +1,4 @@
 import dill
-import pickle
 
 import pandas as pd
 from datetime import datetime
@@ -62,6 +61,7 @@ def add_features(df):
     df['utm_adcontent'] = df['utm_adcontent'].fillna('JNHcPlZPxEMWDnRiyoBf')
 
     df['visit_date'] = pd.to_datetime(df['visit_date'])
+    df['visit_time'] = pd.to_datetime(df['visit_time'])
 
     # обработка выбросов
     df.loc[df['visit_number'] > 4, 'visit_number'] = 4
@@ -94,6 +94,8 @@ def add_features(df):
 
 
 def _column_transformer(df):
+    import pickle
+
     categorical = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_adcontent',
                    'device_os', 'device_brand', 'device_browser',
                    'geo_country', 'geo_city',
@@ -110,6 +112,8 @@ def _column_transformer(df):
 
 
 def delete_unimportant_columns(df):
+    import pandas as pd
+
     important_columns = pd.read_csv('data/important_columns.csv', index_col='0').drop(index='target').index
 
     df = df[important_columns]
