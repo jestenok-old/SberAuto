@@ -110,11 +110,9 @@ def _column_transformer(df):
 
 
 def delete_unimportant_columns(df):
-    important_columns = pd.read_csv('data/important_columns.csv')
+    important_columns = pd.read_csv('data/important_columns.csv', index_col='0').drop(index='target').index
 
-    df = df[important_columns['0']]
-    print(df.shape)
-    print(df.columns)
+    df = df[important_columns]
     return df
 
 

@@ -9,11 +9,11 @@ with open('data/sberauto_pipe.pkl', 'rb') as file:
 
 
 def main():
-    test_df = pd.read_pickle('data/data_with_target.pickle').head(2000)
+    test_df = pd.read_pickle('data/data_with_target.pickle').head(200000)
     predict = pipe['model'].predict(test_df.drop('target', axis=1))
 
     print(roc_auc_score(test_df['target'], predict))
-    print(confusion_matrix(test_df['target'], predict))
+    # print(confusion_matrix(test_df['target'], predict))
 
 
 if __name__ == '__main__':
